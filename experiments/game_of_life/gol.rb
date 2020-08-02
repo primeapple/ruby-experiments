@@ -31,7 +31,13 @@ class Game_of_Life
         @size_x.times do |x| 
             print '|'
             @size_y.times do |y|
-                print @state[[x,y]] ? 'o' : ' '
+                if @state[[x,y]]
+                    print 'o'
+                elsif @old_state[[x,y]]
+                    print '+'
+                else
+                    print ' '
+                end
             end
             puts '|'
         end
