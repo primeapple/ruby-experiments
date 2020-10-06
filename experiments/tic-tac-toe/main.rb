@@ -1,6 +1,10 @@
 require_relative 'game'
+require_relative 'player'
 
-game = Game.new('o', 'x')
+p1 = Player.new('o', 'Peter')
+p2 = Player.new('x', 'Hans')
+
+game = Game.new(p1, p2)
 game.make_move(1, 1)
 game.make_move(0, 1)
 game.make_move(2, 1)
