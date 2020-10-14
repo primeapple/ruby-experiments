@@ -24,7 +24,7 @@ class State
   end
 
   def winner
-    winner = nil
+    winner = ' '
     SIZE.times do |cord|
       if all_equal(@state[[cord, 0]], @state[[cord, 1]], @state[[cord, 2]])
         winner = @state[[cord, 0]]
