@@ -1,8 +1,10 @@
 require_relative 'game'
-require_relative 'player'
+require_relative 'player/random_player'
+require_relative 'player/greedy_player'
+require_relative 'player/manual_player'
 
-p1 = Player.new('o', 'Peter')
-p2 = Player.new('x', 'Hans')
+p1 = ManualPlayer.new('o', 'Toni')
+p2 = GreedyPlayer.new('x', 'Greedy')
 
 game = Game.new(p1, p2)
 game.play

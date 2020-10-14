@@ -16,14 +16,14 @@ class State
   def next_state(x, y, char)
     raise ArgumentError.new('Wrong argument for x given') unless x.between?(0, 2)
     raise ArgumentError.new('Wrong argument for y given') unless y.between?(0, 2)
-    raise ArgumentError.new('There was already an point at this spot') unless @state[[x, y]] == ' '
+    raise ArgumentError.new('There was already a point at this spot') unless @state[[x, y]] == ' '
     # TODO: maybe find a more efficient way to do this...
     hash = Marshal.load(Marshal.dump(@state))
     hash[[x, y]] = char
     State.new(hash)
   end
 
-  def win?
+  def winner
     winner = nil
     SIZE.times do |cord|
       if all_equal(@state[[cord, 0]], @state[[cord, 1]], @state[[cord, 2]])
@@ -39,7 +39,7 @@ class State
        all_equal(@state[[0, 2]], @state[[1, 1]], @state[[2, 0]])
       winner = @state[[1, 1]]
     end
-    !winner.nil?
+    winner
   end
 
   def filled?
@@ -67,10 +67,6 @@ class State
 
   def possible_moves
     @state.keys.select { |key| @state[key] == ' '}
-  end
-
-  def random_move
-    possible_moves.sample
   end
 
   private

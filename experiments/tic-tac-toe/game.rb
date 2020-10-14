@@ -1,5 +1,5 @@
 require_relative 'state'
-require_relative 'player'
+require_relative 'player/player'
 
 class Game
 
@@ -7,7 +7,7 @@ class Game
     @state = State.new
     @player1 = player1
     @player2 = player2
-    @current_player = @player1
+    @current_player = [@player1, @player2].sample
     puts "#{@player1.name} plays with #{player1.symbol}"
     puts "#{@player2.name} plays with #{player2.symbol}"
     puts "#{@current_player.name} is starting!"
@@ -22,10 +22,11 @@ class Game
 
   def make_move(x, y)
     return if finished?
+
     puts "Player #{@current_player.name} makes move x=#{x}, y=#{y}"
     @state = @state.next_state(x, y, @current_player.symbol)
     @state.print_state
-    win = @state.win?
+    win = !@state.winner.nil?
     if win
       @winner = @current_player
       puts "#{@winner.name} wins!"
@@ -40,6 +41,7 @@ class Game
   def finished?
     @state.filled? || !@winner.nil?
   end
+
   private
 
   def change_current_player
