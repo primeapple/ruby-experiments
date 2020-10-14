@@ -10,8 +10,7 @@ class Player
   end
 
   def calculate_move(state)
-
+    state.random_move
   end
-
 
 end

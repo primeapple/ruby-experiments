@@ -13,22 +13,33 @@ class Game
     puts "#{@current_player.name} is starting!"
   end
 
-  def make_move(x, y)
-    return unless @winner.nil?
-    return if @state.filled?
+  def play
+    until finished?
+      x, y = @current_player.calculate_move(@state)
+      make_move(x, y)
+    end
+  end
 
+  def make_move(x, y)
+    return if finished?
+    puts "Player #{@current_player.name} makes move x=#{x}, y=#{y}"
     @state = @state.next_state(x, y, @current_player.symbol)
     @state.print_state
     win = @state.win?
     if win
       @winner = @current_player
       puts "#{@winner.name} wins!"
+    elsif @state.filled?
+      puts "It's a draw!"
     else
       change_current_player
       puts "#{@current_player.name}, it is your turn!"
     end
   end
 
+  def finished?
+    @state.filled? || !@winner.nil?
+  end
   private
 
   def change_current_player

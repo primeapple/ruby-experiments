@@ -52,16 +52,25 @@ class State
   end
 
   def print_state
-    divider = "+#{'--' * SIZE}-+"
+    divider = " +#{'--' * SIZE}-+"
+    puts "   #{(0...SIZE).to_a.join(' ')}"
     puts divider
     SIZE.times do |y|
-      print '| '
+      print "#{y}| "
       SIZE.times do |x|
         print "#{@state[[x, y]]} "
       end
       puts '|'
     end
     puts divider
+  end
+
+  def possible_moves
+    @state.keys.select { |key| @state[key] == ' '}
+  end
+
+  def random_move
+    possible_moves.sample
   end
 
   private
