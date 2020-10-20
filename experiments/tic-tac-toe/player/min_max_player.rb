@@ -38,13 +38,13 @@ class MinMaxPlayer < Player
 
   def calculate_result(state)
     winner = state.winner
-    empty_fields = state.num_empty_fields
+    multiplier = state.remaining_moves + 1
     if state.filled? && winner == ' '
       0
     elsif winner == @symbol
-      1 * empty_fields
+      1 * multiplier
     elsif winner == @enemy_symbol
-      -1 * empty_fields
+      -1 * multiplier
     end
   end
 end

@@ -69,7 +69,7 @@ class State
     @state.keys.select { |key| @state[key] == ' '}
   end
 
-  def num_empty_fields
+  def remaining_moves
     @state.values.count(' ')
   end
 

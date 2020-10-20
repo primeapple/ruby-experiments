@@ -21,22 +21,6 @@ class TicTacToeTest < Minitest::Test
   end
 
   def test_min_max_player
-  #  Player MinMax1 makes move x=1, y=0
-  #    0 1 2
-  #  +-------+
-  # 0|   x x |
-  # 1| x o o |
-  # 2|   o x |
-  #  +-------+
-  # MinMax2, it is your turn!
-  # MinMax2 is thinking...
-  # Player MinMax2 makes move x=0, y=2
-  #    0 1 2
-  #  +-------+
-  # 0|   x x |
-  # 1| x o o |
-  # 2| o o x |
-  #  +-------+
     state = State.new({
         [0, 0] => ' ',
         [1, 0] => 'x',
