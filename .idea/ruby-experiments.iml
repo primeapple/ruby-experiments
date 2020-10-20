@@ -11,5 +11,24 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="minitest (vbundled(5.14.2)) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$USER_HOME$/.gem/jruby/2.5.0/gems/minitest-5.14.2/lib" />
+          <root url="file://$USER_HOME$/.gem/jruby/2.5.0/gems/minitest-5.14.2/test" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$USER_HOME$/.gem/jruby/2.5.0/gems/minitest-5.14.2/lib" />
+          <root url="file://$USER_HOME$/.gem/jruby/2.5.0/gems/minitest-5.14.2/test" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$USER_HOME$/.gem/jruby/2.5.0/gems/minitest-5.14.2/test" />
+        </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" scope="PROVIDED" name="bundler (v2.1.4, RVM: jruby-9.2.9.0 [global]) [gem]" level="application" />
   </component>
 </module>

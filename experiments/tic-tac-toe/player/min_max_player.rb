@@ -1,3 +1,5 @@
+require_relative 'player'
+
 class MinMaxPlayer < Player
 
   def initialize(symbol, name, enemy_symbol)

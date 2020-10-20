@@ -26,14 +26,14 @@ class Game
     puts "Player #{@current_player.name} makes move x=#{x}, y=#{y}"
     @state = @state.next_state(x, y, @current_player.symbol)
     @state.print_state
-    if @state.filled?
-      puts "It's a draw!"
-    elsif @state.winner == ' '
-      change_current_player
-      puts "#{@current_player.name}, it is your turn!"
-    else
+    if @state.winner != ' '
       @winner = @current_player
       puts "#{@winner.name} wins!"
+    elsif @state.filled?
+      puts "It's a draw!"
+    else
+      change_current_player
+      puts "#{@current_player.name}, it is your turn!"
     end
   end
 

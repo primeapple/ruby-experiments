@@ -1,0 +1,12 @@
+GEM
+  specs:
+    minitest (5.14.2)
+
+PLATFORMS
+  java
+
+DEPENDENCIES
+  minitest (~> 5.8, >= 5.8.4)
+
+BUNDLED WITH
+   2.1.4
