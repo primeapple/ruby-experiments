@@ -6,6 +6,7 @@ class MinMaxPlayer < Player
   end
 
   def calculate_move(state)
+    puts "#{@name} is thinking..."
     _, x, y = min_max_algorithm(state, @symbol)
     [x, y]
   end
@@ -13,26 +14,16 @@ class MinMaxPlayer < Player
   private
 
   def min_max_algorithm(state, current_player_symbol)
-    # if we are the winner in the next state, take this
-    if !(wnm = winnable_next_moves(state)).empty?
-      return [current_player_symbol, wnm[0][0], wnm[0][1]]
-    end
-    next_symbol = next_player_symbol(current_player_symbol)
-    best_outcome = [next_symbol, nil, nil]
-    state.possible_moves.each do |x, y|
+    maximize = current_player_symbol == @symbol
+    results = state.possible_moves.map do |x, y|
       next_state = state.next_state(x, y, current_player_symbol)
-      if next_state.filled?
-        best_outcome = choose_better_outcome(best_outcome, [next_state.winner, x, y], current_player_symbol)
-      # choose the best outcome from what we have till now and what we could get from enemy turn
-      else
-        enemy_best_outcome = min_max_algorithm(next_state, next_symbol)
-        best_outcome = choose_better_outcome(best_outcome, enemy_best_outcome, current_player_symbol)
-        break if best_outcome[0] == current_player_symbol
-      end
+      r = calculate_result(next_state)
+      r ||= min_max_algorithm(next_state, next_player_symbol(current_player_symbol)).first
+      [r, x, y]
     end
-    # puts "Best outcome for player #{current_player_symbol} is #{best_outcome} for state"
-    # state.print_state
-    best_outcome
+    # Choose the best outcome:
+    best_result = maximize ? results.max { |r1, r2| r1[0] <=> r2[0] } : results.min { |r1, r2| r1[0] <=> r2[0] }
+    results.select { |r| r[0] == best_result[0] }.sample
   end
 
   def next_player_symbol(current_player_symbol)
@@ -43,13 +34,15 @@ class MinMaxPlayer < Player
     end
   end
 
-  def choose_better_outcome(best_outcome_till_now, enemy_best_outcome, current_player_symbol)
-    if enemy_best_outcome[0] == current_player_symbol
-      enemy_best_outcome
-    elsif best_outcome_till_now[0] == ' '
-      best_outcome_till_now
-    else
-      enemy_best_outcome
+  def calculate_result(state)
+    winner = state.winner
+    empty_fields = state.num_empty_fields
+    if state.filled? && winner == ' '
+      0
+    elsif winner == @symbol
+      1 * empty_fields
+    elsif winner == @enemy_symbol
+      -1 * empty_fields
     end
   end
 end

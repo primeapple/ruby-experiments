@@ -69,6 +69,10 @@ class State
     @state.keys.select { |key| @state[key] == ' '}
   end
 
+  def num_empty_fields
+    @state.values.count(' ')
+  end
+
   private
 
   def all_equal(x, y, z)
