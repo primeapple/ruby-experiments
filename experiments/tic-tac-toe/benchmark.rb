@@ -1,5 +1,3 @@
-require_relative 'player/min_max_player'
-
 class Benchmark
   def initialize(*player_classes)
     @player_classes = player_classes
@@ -23,12 +21,12 @@ class Benchmark
   def print_wintable(wintable)
     max = @player_classes.max { |c1, c2| c1.to_s.size <=> c2.to_s.size }.to_s.size
     puts "######### RESULTS OF BENCHMARK #########"
-    print " x \\ y#{' ' * (max-4)}"
-    @player_classes.each { |c| print "|#{class_name_string(c, max)}"}
+    print " #{fill_up_string('p1 \\ p2', max)}"
+    @player_classes.each { |c| print " | #{fill_up_string(c.to_s, max)}"}
     puts
     @player_classes.each do |c1|
-      print "#{class_name_string(c1, max)}| "
-      @player_classes.each { |c2| print(calc_win_percentage(c1, wintable[[c1, c2]])) }
+      print " #{fill_up_string(c1.to_s, max)}"
+      @player_classes.each { |c2| print " | #{fill_up_string(win_stats(c1, wintable[[c1, c2]]), max)}" }
       puts
     end
   end
@@ -36,17 +34,7 @@ class Benchmark
   private
 
   def create_players(player_class1, player_class2)
-    p1 = create_player(player_class1, 'x', 'o')
-    p2 = create_player(player_class1, 'o', 'x')
-    [p1, p2]
-  end
-
-  def create_player(player_class, symbol, enemy_symbol)
-    if player_class == MinMaxPlayer.class
-      player_class.new(symbol, player_class.to_s, enemy_symbol)
-    else
-      player_class.new(symbol, player_class.to_s)
-    end
+    [player_class1.new, player_class2.new]
   end
 
   def play(player1, player2)
@@ -54,7 +42,14 @@ class Benchmark
     g.play.class
   end
 
-  def class_name_string(class_name, biggest_class_name_size)
-    " #{class_name.to_s}#{' ' * (biggest_class_name_size - class_name.to_s.size)} "
+  def fill_up_string(original_string, fill_to_size, char_to_fill: ' ')
+    "#{original_string}#{char_to_fill * (fill_to_size - original_string.size)}"
+  end
+
+  def win_stats(start_player, results)
+    # "w:#{results.count(start_player)}, "\
+    # "d:#{results.count(nil.class)}, "\
+    # "l:#{results.count { |c| c != start_player && c != nil.class}}"
+    "W/LD=#{results.count(start_player)/results.count.to_f}"
   end
 end

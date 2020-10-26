@@ -2,13 +2,12 @@ require_relative 'player'
 
 class MinMaxPlayer < Player
 
-  def initialize(symbol, name, enemy_symbol)
-    super(symbol, name)
+  def initialize(name: 'MinMaxPlayer', symbol: 'x', enemy_symbol: 'o')
+    super(name: name, symbol: symbol)
     @enemy_symbol = enemy_symbol
   end
 
   def calculate_move(state)
-    puts "#{@name} is thinking..."
     _, x, y = min_max_algorithm(state, @symbol)
     [x, y]
   end

@@ -4,7 +4,7 @@ class Player
 
   attr_reader :symbol, :name
 
-  def initialize(symbol, name)
+  def initialize(name: self.class.to_s, symbol: 'x')
     @symbol = symbol
     @name = name
   end
