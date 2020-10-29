@@ -4,13 +4,13 @@ class Player
 
   attr_reader :symbol, :name
 
-  def initialize(name: self.class.to_s, symbol: 'x')
+  def initialize(symbol, enemy_symbol, name: self.class.to_s)
     @symbol = symbol
+    @enemy_symbol = enemy_symbol
     @name = name
   end
 
-  def calculate_move(state)
-  end
+  def calculate_move(state); end
 
   private
 

@@ -20,7 +20,7 @@ class Benchmark
 
   def print_game_table(game_table)
     max = @player_classes.max { |c1, c2| c1.to_s.size <=> c2.to_s.size }.to_s.size
-    puts "######### RESULTS OF BENCHMARK #########"
+    puts '######### RESULTS OF BENCHMARK #########'
     print " #{fill_up_string('p1 \\ p2', max)}"
     @player_classes.each { |c| print " | #{fill_up_string(c.to_s, max)}"}
     puts
@@ -34,7 +34,7 @@ class Benchmark
   private
 
   def create_players(player_class1, player_class2)
-    [player_class1.new, player_class2.new]
+    [player_class1.new('x', 'o'), player_class2.new('o', 'x')]
   end
 
   def play(player1, player2)
