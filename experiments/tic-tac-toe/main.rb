@@ -6,5 +6,6 @@ require_relative 'player/manual_player'
 require_relative 'player/min_max_player'
 
 bench = Benchmark.new(RandomPlayer, GreedyPlayer, MinMaxPlayer)
-result = bench.benchmark(5)
-bench.print_wintable(result)
+puts "Starting Benchmark"
+result = bench.benchmark(1)
+bench.print_game_table(result)

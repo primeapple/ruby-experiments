@@ -3,8 +3,11 @@ require_relative 'player/player'
 
 class Game
 
+  attr_reader :state_history, :winner
+
   def initialize(player1, player2, player1_start: true, print: true)
     @state = State.new
+    @state_history = [@state]
     @player1 = player1
     @player2 = player2
     @current_player = player1_start ? @player1 : @player2
@@ -39,6 +42,7 @@ class Game
       change_current_player
       puts "#{@current_player.name}, it is your turn!" if @print
     end
+    @state_history << @state
   end
 
   def finished?
